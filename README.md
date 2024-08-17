@@ -19,7 +19,7 @@ This Bookstore Application is a full-featured web application built using React,
 ## Technologies Used
 - **Frontend:** React, CSS, Javascript
 - **Backend:** Node.js, Express
-- **Database:** MySQL
+- **Database:** MongoDB, MySQL
 - **Authentication:**  bcrypt
 
 ## Getting Started
@@ -27,7 +27,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 ### Prerequisites
 - Node.js and npm installed
-- MySQL installed and running
+- MySQL, MongoDB installed and running
 
 ### Installation
 
@@ -42,7 +42,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     npm install
     ```
 
-3. **Set up the MySQL database:**
+3. **Set up the MySQL or MongoDB database:**
     - Create a new database called `bookstore`.
     - Run the provided SQL script to create the necessary tables and insert sample data.
     - Update the database configuration in `config/db.js`.
@@ -54,7 +54,7 @@ Follow these instructions to get a copy of the project up and running on your lo
       DB_HOST=localhost
       DB_USER=root
       DB_PASS=password
-      DB_NAME=bookstore
+      DB_NAME=bookstore....
       ```
 
 5. **Run the application:**
