@@ -40,7 +40,7 @@ const Category = (props) => {
             <div className='render-box'>
                 {values.map((obj) => {
                     return (
-                        <div className='render-ele' onClick={() => selectedcategory(obj[column])}>{obj[column]}</div>
+                        <div className='render-ele' onClick={() => selectedcategory(obj)}>{obj}</div> //obj[column]
                     );
                 })}
             </div>

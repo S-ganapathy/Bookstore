@@ -65,40 +65,41 @@ const Product = () => {
                 <div>Description</div>
             </div>
             <hr />
-            <div>{values.map((obj) => {
-                return (
-                    <div className="product-box" key={obj.id}>
+            <div>
+                {/* {values.map((obj) => {                                   uncomment this for mysql
+                return ( */}
+                    <div className="product-box" key={values.id}>
                         <div className="product-images">
                         <img src={img1} />
                         </div>
                         <div className="product-information">
-                            <div className="product-title">{obj.title}</div>
+                            <div className="product-title">{values.title}</div>
                             <div className="product-publication">
                                 <div className="gray-font">Editions by -</div>
-                                {obj.publication}</div>
-                            <div className="product-rating">{obj.rating} <MdStar color="gold" /> Rating</div>
+                                {values.publication}</div>
+                            <div className="product-rating">{values.rating} <MdStar color="gold" /> Rating</div>
                             <div className="product-description">
                                 <div className="gray-font">overview</div>
-                                {obj.description}</div>
+                                {values.description}</div>
                             <div className="product-author">
                                 <div className="gray-font">Author</div>
-                                {obj.author}</div>
+                                {values.author}</div>
                             <div className="product-genre">
                                 <div className="gray-font">Genre</div>
-                                {obj.genre}</div>
+                                {values.genre}</div>
                             <div className="product-year">
                                 <div className="gray-font">Year</div>
-                                {obj.year}</div>
+                                {values.year}</div>
                             <div className="product-price">
                                 <div className="gray-font">Price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stock</div>&euro; 
-                                {obj.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {obj.stock} </div>
+                                {values.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {values.stock} </div>
 
-                            <button onClick={() => addToCart(obj.id)}>Add to Cart</button>
+                            <button onClick={() => addToCart(values.id)}>Add to Cart</button>
                             
                         </div>
                     </div>
-                );
-            })}
+                {/* );
+            })} */}
 
 
             </div>
