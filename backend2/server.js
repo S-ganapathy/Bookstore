@@ -6,10 +6,12 @@ let mongoose = require("mongoose");
 let userdetail = require("../backend2/models/Usercred.js");
 let bookdetail = require("../backend2/models/Book.js");
 let cartsdetail = require("../backend2/models/Cart.js");
-
+let auth=require("../backend2/middleware/Auth.js");
+let jwt=require("jsonwebtoken");
 console.log("***************************************************************************************************************")
 const salt = 5;
 const port = 5000;
+const key="idiot";
 
 const app = express();
 app.use(cors());
@@ -71,7 +73,8 @@ app.post('/login', async (request, response) => {
         if (check) {
             await bcrypt.compare(password, check.password).then((compared) => {
                 if (compared === true) {
-                    let resultdata = { user: { username: check.name, userid: check._id } };
+                    const token=jwt.sign({id:check._id},key,{expiresIn:"30d"})
+                    let resultdata = { user: { username: check.name, userid: check._id,token:token } };
                     return (response.send(resultdata));
                 } else {
                     return (response.send(false));
@@ -88,7 +91,7 @@ app.post('/login', async (request, response) => {
 
 // ********************************************************* Homepage category
 
-app.post("/homepage", async (request, response) => {
+app.post("/homepage",auth, async (request, response) => {
     try {
         let { column } = request.body;
         // console.log(column);
@@ -106,7 +109,7 @@ app.post("/homepage", async (request, response) => {
 
 // ********************************************************* cart count
 
-app.post("/cartcount", async (request, response) => {
+app.post("/cartcount",auth, async (request, response) => {
     try {
         let { userid } = request.body;
         let check = await cartsdetail.find({ uid: userid }).countDocuments();
@@ -120,7 +123,7 @@ app.post("/cartcount", async (request, response) => {
 
 // ********************************************************* All products
 
-app.get("/homepage/allproducts", async (request, response) => {
+app.get("/homepage/allproducts", auth, async (request, response) => {
     try {
         let result = await bookdetail.find();
         // console.log(result);
@@ -137,7 +140,7 @@ app.get("/homepage/allproducts", async (request, response) => {
 
 // ********************************************************* Products
 
-app.post("/homepage/products", async (request, response) => {
+app.post("/homepage/products", auth,async (request, response) => {
     try {
         let { value, column } = request.body;
         // console.log(value,column);
@@ -157,7 +160,7 @@ app.post("/homepage/products", async (request, response) => {
 
 // ********************************************************* product
 
-app.post("/homepage/product", async (request, response) => {
+app.post("/homepage/product", auth,async (request, response) => {
     try {
         let { id } = request.body;
         let result = await bookdetail.findOne({ id: id });
@@ -174,7 +177,7 @@ app.post("/homepage/product", async (request, response) => {
 
 // ********************************************************* add to cart
 
-app.post('/homepage/products/cart',async (request, response) => {
+app.post('/homepage/products/cart',auth,async (request, response) => {
     let { userid, bookid } = request.body;
     // console.log(userid, bookid);
     try {
@@ -194,7 +197,7 @@ app.post('/homepage/products/cart',async (request, response) => {
 
 // ********************************************************* cart data
 
-app.post('/cart',async (request, response) => {
+app.post('/cart',auth,async (request, response) => {
     let userid = request.body;
     // console.log("console", userid.userid);
     try {
@@ -213,7 +216,7 @@ app.post('/cart',async (request, response) => {
 
 // ********************************************************* cart delete data
 
-app.post("/cart-delete",async (request,response)=>{
+app.post("/cart-delete",auth,async (request,response)=>{
     try{
         let { userid, bookid } = request.body;
         // console.log(userid, bookid);

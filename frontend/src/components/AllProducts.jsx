@@ -8,10 +8,15 @@ import toast, { Toaster } from 'react-hot-toast';
 const AllProducts = () => {
     const navigate = useNavigate();
     const [values, setValues] = useState([]);
+    let token='';
+    let loginStatus = localStorage.getItem('login-status');
+    if (loginStatus) {
+      token=localStorage.getItem('token')
+    }
 
     useEffect(() => {
         try {
-            axios.get('http://localhost:5000/homepage/allproducts').then((response) => {
+            axios.get('http://localhost:5000/homepage/allproducts',{headers:{"Authorization":token}}).then((response) => {
                 let result = response.data;
                 if (result !== false) {
                     setValues(result);

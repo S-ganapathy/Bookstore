@@ -16,17 +16,19 @@ const Header = () => {
 
   let username = '';
   let userid = '';
+  let token='';
 
   let loginStatus = localStorage.getItem('login-status');
   if (loginStatus) {
     username = localStorage.getItem('username');
     userid = localStorage.getItem('userid');
+    token=localStorage.getItem('token')
   }
 
   useEffect(() => {
     let data = { userid: userid }
     try {
-      axios.post('http://localhost:5000/cartcount', data).then((response) => {
+      axios.post('http://localhost:5000/cartcount', data,{headers:{"Authorization":token}}).then((response) => {
         let result = response.data;
         if (result !== false) {
           let { count } = result;

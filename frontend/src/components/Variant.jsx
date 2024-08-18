@@ -9,12 +9,19 @@ const Category = (props) => {
     let data = { column: props.value }
     const navigate = useNavigate();
 
+    let token='';
+
+    let loginStatus = localStorage.getItem('login-status');
+    if (loginStatus) {
+      token=localStorage.getItem('token')
+    }
+
     useEffect(() => { getdata(); }, [props]);
 
     function getdata() {
 
         try {
-            axios.post('http://localhost:5000/homepage', data).then((response) => {
+            axios.post('http://localhost:5000/homepage', data,{headers:{"Authorization":token}}).then((response) => {
                 var temp = response.data;
                 setValues(temp);
             });

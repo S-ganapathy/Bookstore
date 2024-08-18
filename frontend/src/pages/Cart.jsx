@@ -15,10 +15,12 @@ const Cart = () => {
 
     let username = '';
     let userid = '';
+    let token='';
     let loginStatus = localStorage.getItem('login-status');
     if (loginStatus) {
         username = localStorage.getItem('username');
         userid = localStorage.getItem('userid');
+        token=localStorage.getItem('token');
     }
 
     useEffect(() => {
@@ -29,7 +31,7 @@ const Cart = () => {
     const getdata = () => {
         let data = { userid: userid }
         try {
-            axios.post('http://localhost:5000/cart', data).then((response) => {
+            axios.post('http://localhost:5000/cart', data,{headers:{"Authorization":token}}).then((response) => {
                 let result = response.data;
                 if (result !== false) {
                     setValues(result);
@@ -46,7 +48,7 @@ const Cart = () => {
     const deleteItem = (items) => {
         let data = { userid: userid, bookid: items }
         try {
-            axios.post('http://localhost:5000/cart-delete', data).then((response) => {
+            axios.post('http://localhost:5000/cart-delete', data,{headers:{"Authorization":token}}).then((response) => {
                 let result = response.data;
                 if (result === true) {
                     toast.success("one Item deleted sucessful :)");
@@ -66,7 +68,7 @@ const Cart = () => {
     useEffect(() => {
         let data = { userid: userid }
         try {
-          axios.post('http://localhost:5000/cartcount', data).then((response) => {
+          axios.post('http://localhost:5000/cartcount', data,{headers:{"Authorization":token}}).then((response) => {
             let result = response.data;
             if (result !== false) {
               let { count } = result;

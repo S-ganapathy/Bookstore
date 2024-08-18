@@ -22,10 +22,12 @@ const Products = () => {
 
     let username='';
     let userid='';
+    let token='';
     let loginStatus = localStorage.getItem('login-status');
     if (loginStatus) {
       username = localStorage.getItem('username');
       userid = localStorage.getItem('userid');
+      token=localStorage.getItem('token');
    }
 
     useEffect(() => {
@@ -35,7 +37,7 @@ const Products = () => {
     const getdata = () => {
         if (value && column) {
             try {
-                axios.post('http://localhost:5000/homepage/products', state).then((response) => {
+                axios.post('http://localhost:5000/homepage/products', state,{headers:{"Authorization":token}}).then((response) => {
                     let result=response.data;
                     if(result!==false){
                     var temp = response.data;
@@ -55,7 +57,7 @@ const Products = () => {
     const addToCart = async (items) => {
         let data = { userid: userid, bookid: items }
         try {
-            await axios.post('http://localhost:5000/homepage/products/cart', data).then((response) => {
+            await axios.post('http://localhost:5000/homepage/products/cart', data,{headers:{"Authorization":token}}).then((response) => {
                 let result = response.data;
                 if (result === false) {
                     toast.error('something worng please try again');

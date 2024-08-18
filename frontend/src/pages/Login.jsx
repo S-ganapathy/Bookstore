@@ -42,6 +42,7 @@ const LoginRegister = () => {
                             localStorage.setItem('login-status',true);
                             localStorage.setItem('username',user.username);
                             localStorage.setItem('userid',user.userid);
+                            localStorage.setItem('token',user.token);
                             // load user to global context
                             let loginStatus=localStorage.getItem('login-status');
                             if(loginStatus){
