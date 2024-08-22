@@ -20,7 +20,7 @@ This Bookstore Application is a full-featured web application built using React,
 - **Frontend:** React, CSS, Javascript
 - **Backend:** Node.js, Express
 - **Database:** MongoDB, MySQL
-- **Authentication:**  bcrypt
+- **Authentication:**  Jwt,bcrypt
 
 ## Getting Started
 Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
